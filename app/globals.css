@@ -17,10 +17,45 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(18px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Chuva solta: cada token cai do topo ao fundo */
+@keyframes tokenFall {
+  0% { transform: translateY(-20vh); }
+  100% { transform: translateY(120vh); }
+}
+
+/* Token flutuante (posicionado por left no inline style) */
+.code-rain-float {
+  position: absolute;
+  top: 0;
+  transform: translateY(-20vh);
+  animation-name: tokenFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  /* Visual “código” */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  color: rgba(174, 22, 239, 0.855);
+  text-shadow: 0 0 14px rgba(131, 19, 236, 0.738);
+  white-space: nowrap;
+  user-select: none;
 }
