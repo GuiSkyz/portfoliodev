@@ -90,12 +90,13 @@ export default function Home() {
       </div>
 
       {/* Chuva de tokens SOLTA */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true" role="presentation" >
         {/* Fade topo/baixo (dá profundidade e não polui leitura) */}
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-transparent to-zinc-950" />
 
         {rainItems.map((it) => (
           <span
+            aria-hidden="true"
             key={it.id}
             className="code-rain-float"
             style={{
