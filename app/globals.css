@@ -1,8 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --surface-primary: #111113;
+  --surface-secondary: #161619;
+  --surface-tertiary: #1c1c20;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #2563eb;
+  --accent-blue-muted: rgba(59, 130, 246, 0.12);
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
 }
 
 @theme inline {
@@ -12,56 +24,86 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(18px); }
+::selection {
+  background-color: rgba(59, 130, 246, 0.35);
+  color: #ffffff;
 }
 
-@keyframes float2 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-/* Chuva solta: cada token cai do topo ao fundo */
-@keyframes tokenFall {
-  0% { transform: translateY(-20vh); }
-  100% { transform: translateY(120vh); }
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Grid & texture utilities */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animation utilities */
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
+}
+
+.animate-status-pulse {
+  animation: subtlePulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .code-rain-float {
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-/* Token flutuante (posicionado por left no inline style) */
-.code-rain-float {
-  position: absolute;
-  top: 0;
-  transform: translateY(-20vh);
-  animation-name: tokenFall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-
-  /* Visual “código” */
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  color: rgba(174, 22, 239, 0.855);
-  text-shadow: 0 0 14px rgba(131, 19, 236, 0.738);
-  white-space: nowrap;
-  user-select: none;
 }
